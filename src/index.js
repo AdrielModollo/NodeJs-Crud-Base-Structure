@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyparser = require('body-parser');
 const sequelize = require('./util/database');
-const User = require('./models/user');
+const User = require('./models/userModel');
 
 const app = express();
 
@@ -20,7 +20,7 @@ app.get('/', (req, res, next) => {
 });
 
 //CRUD routes
-app.use('/users', require('./routes/users'));
+app.use('/users', require('./routes/usersRoute'));
 
 //error handling
 app.use((error, req, res, next) => {
