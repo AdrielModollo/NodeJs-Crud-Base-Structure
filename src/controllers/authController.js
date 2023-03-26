@@ -1,7 +1,10 @@
-const User = require('../models/userModel');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
+const User = require('../models/userModel');
+const schema = require('../interface/schema/registerUserSchema');
+
+
 dotenv.config();
 
 exports.login = (req, res, next) => {
@@ -46,9 +49,12 @@ exports.login = (req, res, next) => {
 };
 
 exports.register = (req, res, next) => {
-    const name = req.body.name;
-    const email = req.body.email;
-    const password = req.body.password;
+    const { name, email, password } = req.body;
+
+    const { error } = schema.validate({ name, email, password });
+    if (error) {
+        return res.status(400).json({ message: error.details[0].message });
+    }
 
     User.findOne({ where: { email: email } })
         .then(existingUser => {
