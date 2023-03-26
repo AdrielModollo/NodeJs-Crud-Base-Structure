@@ -50,25 +50,40 @@ exports.register = (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
 
-    bcrypt.hash(password, 12)
-        .then(hashedPassword => {
-            return User.create({
-                name: name,
-                email: email,
-                password: hashedPassword
-            });
-        })
-        .then(result => {
-            console.log('Usuário criado');
-            res.status(201).json({
-                message: 'Usuário criado com sucesso!',
-                user: result
-            });
+    User.findOne({ where: { email: email } })
+        .then(existingUser => {
+            if (existingUser) {
+                return res.status(409).json({
+                    message: 'Email já cadastrado'
+                });
+            }
+
+            bcrypt.hash(password, 12)
+                .then(hashedPassword => {
+                    return User.create({
+                        name: name,
+                        email: email,
+                        password: hashedPassword
+                    });
+                })
+                .then(result => {
+                    res.status(201).json({
+                        message: 'Usuário criado com sucesso!',
+                        user: result
+                    });
+                })
+                .catch(err => {
+                    console.log(err);
+                    return res.status(500).json({
+                        message: 'Falha na criação do usuário'
+                    });
+                });
         })
         .catch(err => {
             console.log(err);
             return res.status(500).json({
-                message: 'Falha na criação do usuário'
+                message: 'Falha na validação do email'
             });
         });
 };
+

@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 dotenv.config();
 
-const authenticateJWT = (req, res, next) => {
+exports.authenticateJWT = (req, res, next) => {
     const authHeader = req.headers.authorization;
     if (authHeader) {
         const token = authHeader.split(' ')[1];
@@ -18,4 +18,11 @@ const authenticateJWT = (req, res, next) => {
     }
 };
 
-module.exports = authenticateJWT;
+exports.authenticateRegister = (req, res, next) => {
+    const authHeader = req.get('Authorization');
+    if (!authHeader || authHeader !== process.env.JWT_KEY) {
+        return res.status(401).json({ message: 'Não autorizado' });
+    }
+    next();
+}
+
