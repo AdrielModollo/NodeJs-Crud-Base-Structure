@@ -24,27 +24,6 @@ exports.getUser = (req, res, next) => {
         .catch(err => console.log(err));
 }
 
-//create user
-exports.createUser = (req, res, next) => {
-    const name = req.body.name;
-    const email = req.body.email;
-    const password = req.body.password;
-    User.create({
-        name: name,
-        email: email,
-        password: password
-    })
-        .then(result => {
-            console.log('Created User');
-            res.status(201).json({
-                message: 'User created successfully!',
-                user: result
-            });
-        })
-        .catch(err => {
-            console.log(err);
-        });
-}
 
 //update user
 exports.updateUser = (req, res, next) => {
