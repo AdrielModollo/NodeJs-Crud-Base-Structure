@@ -19,8 +19,10 @@ app.get('/', (req, res, next) => {
     res.send('Hello World');
 });
 
-//CRUD routes
+
+
 app.use('/users', require('./routes/usersRoute'));
+app.use('/authenticate', require('./routes/authRoute'));
 
 //error handling
 app.use((error, req, res, next) => {
