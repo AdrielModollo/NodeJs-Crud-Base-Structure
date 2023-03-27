@@ -1,9 +1,9 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
-const User = require('../models/userModel');
-const registerUserSchema = require('../interface/schema/registerUserSchema');
-const loginAuthSchema = require('../interface/schema/loginAuthSchema');
+const User = require('../../../infra/repositories/models/userModel');
+const registerUserSchema = require('../../../interface/schema/registerUserSchema');
+const loginAuthSchema = require('../../../interface/schema/loginAuthSchema');
 
 
 dotenv.config();

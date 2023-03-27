@@ -1,7 +1,7 @@
-const User = require('../models/userModel');
-const updateUserSchema = require('../interface/schema/updateUserSchema');
-const getByIDUserSchema = require('../interface/schema/getByIDUserSchema');
-const deleteByIDUserSchema = require('../interface/schema/deleteByIDUserSchema');
+const User = require('../../../infra/repositories/models/userModel');
+const updateUserSchema = require('../../schema/updateUserSchema');
+const getByIDUserSchema = require('../../schema/getByIDUserSchema');
+const deleteByIDUserSchema = require('../../schema/deleteByIDUserSchema');
 
 
 // CRUD Controllers

@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyparser = require('body-parser');
-const sequelize = require('./util/database');
-const User = require('./models/userModel');
+const sequelize = require('./infra/database/database.js');
 const errorHandling = require('./middlewares/errorHandling');
 
 const app = express();

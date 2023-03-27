@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const controller = require('../controllers/usersController');
+const controller = require('../interface/http/controllers/usersController');
 const middlewares = require('../middlewares/auth');
 
 // CRUD Routes /users
