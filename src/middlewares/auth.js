@@ -8,7 +8,8 @@ exports.authenticateJWT = (req, res, next) => {
         const token = authHeader.split(' ')[1];
         jwt.verify(token, process.env.JWT_KEY, (err, user) => {
             if (err) {
-                return res.sendStatus(403);
+                const message = err.message;
+                return res.sendStatus(403).json({ message: message });;
             }
             req.user = user;
             next();

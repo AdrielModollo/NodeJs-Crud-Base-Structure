@@ -1,4 +1,8 @@
 const User = require('../models/userModel');
+const updateUserSchema = require('../interface/schema/updateUserSchema');
+const getByIDUserSchema = require('../interface/schema/getByIDUserSchema');
+const deleteByIDUserSchema = require('../interface/schema/deleteByIDUserSchema');
+
 
 // CRUD Controllers
 
@@ -14,6 +18,12 @@ exports.getUsers = (req, res, next) => {
 //get user by id
 exports.getUser = (req, res, next) => {
     const userId = req.params.userId;
+
+    const { error: validationError } = getByIDUserSchema.validate({ params: { userId } });
+    if (validationError) {
+        return res.status(400).json({ message: validationError.details[0].message });
+    }
+
     User.findByPk(userId)
         .then(user => {
             if (!user) {
@@ -28,9 +38,13 @@ exports.getUser = (req, res, next) => {
 //update user
 exports.updateUser = (req, res, next) => {
     const userId = req.params.userId;
-    const updatedName = req.body.name;
-    const updatedEmail = req.body.email;
-    const updatedPassword = req.body.password;
+    const { name: updatedName, email: updatedEmail, password: updatedPassword } = req.body;
+
+    const { error: validationError } = updateUserSchema.validate({ params: { userId }, body: { name: updatedName, email: updatedEmail, password: updatedPassword } });
+    if (validationError) {
+        return res.status(400).json({ message: validationError.details[0].message });
+    }
+
     User.findByPk(userId)
         .then(user => {
             if (!user) {
@@ -50,6 +64,12 @@ exports.updateUser = (req, res, next) => {
 //delete user
 exports.deleteUser = (req, res, next) => {
     const userId = req.params.userId;
+
+    const { error: validationError } = deleteByIDUserSchema.validate({ params: { userId } });
+    if (validationError) {
+        return res.status(400).json({ message: validationError.details[0].message });
+    }
+
     User.findByPk(userId)
         .then(user => {
             if (!user) {

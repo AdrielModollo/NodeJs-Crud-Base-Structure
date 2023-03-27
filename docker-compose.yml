@@ -9,12 +9,12 @@ services:
       - "3000:3000"
     environment:
       - PG_DB=crud
-      - PG_USER=adriel
+      - PG_USER=postgres
       - PG_PASSWORD=admin
       - PG_HOST=node_db
     depends_on:
       - node_db
-  
+
   node_db:
     container_name: node_db
     image: postgres:12
@@ -22,7 +22,7 @@ services:
       - "5432:5432"
     environment:
       - POSTGRES_DB=crud
-      - POSTGRES_USER=adriel
+      - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=admin
     volumes:
       - node_db_data:/var/lib/postgresql/data

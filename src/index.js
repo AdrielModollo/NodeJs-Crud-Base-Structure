@@ -2,6 +2,7 @@ const express = require('express');
 const bodyparser = require('body-parser');
 const sequelize = require('./util/database');
 const User = require('./models/userModel');
+const errorHandling = require('./middlewares/errorHandling');
 
 const app = express();
 
@@ -14,23 +15,13 @@ app.use((req, res, next) => {
     next();
 });
 
-//test route
-app.get('/', (req, res, next) => {
-    res.send('Hello World');
-});
-
-
 
 app.use('/users', require('./routes/usersRoute'));
 app.use('/authenticate', require('./routes/authRoute'));
 
 //error handling
-app.use((error, req, res, next) => {
-    console.log(error);
-    const status = error.statusCode || 500;
-    const message = error.message;
-    res.status(status).json({ message: message });
-});
+app.use(errorHandling.notFound);
+app.use(errorHandling.internalServerError);
 
 //sync database
 sequelize
