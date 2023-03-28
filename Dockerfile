@@ -1,7 +1,7 @@
 FROM node:18
 
 # Create app directory
-WORKDIR /app
+WORKDIR /NODEJS-CRUD-BASE-STRUCTURE
 
 COPY package*.json ./
 

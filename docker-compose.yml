@@ -4,7 +4,7 @@ services:
   node_app:
     container_name: node_app
     build: .
-    image: adriel/crud-base-structure
+    image: adriel/crud
     ports:
       - "3000:3000"
     environment:
@@ -12,12 +12,14 @@ services:
       - PG_USER=postgres
       - PG_PASSWORD=admin
       - PG_HOST=node_db
+      - NODE_ENV=development
     depends_on:
       - node_db
+    restart: always
 
   node_db:
     container_name: node_db
-    image: postgres:12
+    image: postgres:14
     ports:
       - "5432:5432"
     environment:
