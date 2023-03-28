@@ -1,4 +1,4 @@
-# Auth Users
+# DDD
 
 A estrutura está de acordo com os princípios da arquitetura limpa (Clean Architecture) e do Domain-Driven Design (DDD).
 
