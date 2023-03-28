@@ -14,7 +14,6 @@ app.use((req, res, next) => {
     next();
 });
 
-
 app.use('/users', require('./routes/usersRoute'));
 app.use('/authenticate', require('./routes/authRoute'));
 
@@ -27,6 +26,6 @@ sequelize
     .sync()
     .then(result => {
         console.log("Database connected");
-        app.listen(3001);
+        app.listen(3000);
     })
     .catch(err => console.log(err));
