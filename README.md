@@ -6,6 +6,32 @@ A pasta "infra" é responsável por abrigar a infraestrutura do sistema, incluin
 
 Essa estrutura segue a separação de responsabilidades de forma clara, onde as camadas de baixo nível não dependem das camadas de nível mais alto, e as camadas de nível mais alto não conhecem os detalhes da implementação das camadas de baixo nível. Além disso, é possível aplicar conceitos de DDD, como a definição de domínios e regras de negócio em cada camada.
 
-O Docker está sendo executado na porta 3000.
+# Iniciando o projeto
 
-A aplicação pode ser executado na porta 3001.
+1. npm install
+
+2. docker compose up --build
+
+3. crie um .env e configure seus acessos
+
+4. npm start
+
+Obs: Caso for utilizar com docker não é necessário iniciar a aplicação, apenas utilze a porta "3000" que já está configurada para o docker!
+
+# Rotas configuradas na api
+
+## USERS
+
+    POST: localhost:PORTA/authenticate/register
+    POST: localhost:PORTA/authenticate/login
+    GET: localhost:PORTA/users/
+    PUT: localhost:PORTA/users/:id
+    DEL: localhost:PORTA/users/:id
+# Users
+
+Você pode criar, atualizar, buscar ou até mesmo deletar os usuários criados na base. Para registrar ou logar com um usuário na base é necessário informar um JWT que será informado no .env. Com o campo "JWT_KEY" preenchido no .env informe no "Headers" em "Key" | Authorization com o valor estabelecido.
+
+# Auth
+
+Em todas as rotas é necessário uma autenticação, utilize a rota: localhost:PORTA/authenticate/login. Recupere o token
+gerado e informe em "Headers" > "Key" | Authorization > "Value" | Bearer Token.
